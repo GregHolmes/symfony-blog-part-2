@@ -69,4 +69,21 @@ class BlogController extends Controller
            'blogPost' => $blogPost
         ));
     }
+
+    /**
+     * @Route("/author/{name}", name="author")
+     */
+    public function authorAction($name)
+    {
+        $author = $this->authorRepository->findOneByUsername($name);
+
+        if (!$author) {
+            $this->addFlash('error', 'Unable to find author!');
+            return $this->redirectToRoute('entries');
+        }
+
+        return $this->render('Blog/author.html.twig', [
+            'author' => $author
+        ]);
+    }
 }

@@ -109,7 +109,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         // Check is valid
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($blogPost);
             $this->entityManager->flush($blogPost);
 

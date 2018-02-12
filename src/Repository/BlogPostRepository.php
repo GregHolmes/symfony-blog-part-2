@@ -26,6 +26,7 @@ class BlogPostRepository extends ServiceEntityRepository
         $queryBuilder
             ->select('bp')
             ->from('App:BlogPost', 'bp')
+            ->orderBy('bp.id', 'DESC')
             ->setFirstResult($limit * ($page - 1))
             ->setMaxResults($limit);
 
