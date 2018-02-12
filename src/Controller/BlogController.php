@@ -51,4 +51,22 @@ class BlogController extends Controller
             'entryLimit' => self::POST_LIMIT
         ]);
     }
+
+    /**
+     * @Route("/entry/{slug}", name="entry")
+     */
+    public function entryAction($slug)
+    {
+        $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+
+        if (!$blogPost) {
+            $this->addFlash('error', 'Unable to find entry!');
+
+            return $this->redirectToRoute('entries');
+        }
+
+        return $this->render('Blog/entry.html.twig', array(
+           'blogPost' => $blogPost
+        ));
+    }
 }
